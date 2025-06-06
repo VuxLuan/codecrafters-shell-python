@@ -11,8 +11,8 @@ def main():
         command = input()
         if command == "exit 0":
             break
-        elif command == "echo":
-            print(command)
+        elif command.startswith("echo"):
+            print(command.removeprefix("echo"))
         else:
             print(f"{command}: command not found")
         
