@@ -9,7 +9,7 @@ def main():
     while(True):
         command = input()
         print(f"{command}: command not found")
-        break
+        
 
 
 if __name__ == "__main__":
