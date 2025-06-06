@@ -13,7 +13,8 @@ def main():
             break
         elif command == "echo":
             print(command)
-        print(f"{command}: command not found")
+        else:
+            print(f"{command}: command not found")
         
 
 
