@@ -9,10 +9,11 @@ def main():
     while(True):
         sys.stdout.write("$ ")
         command = input()
+        parts: list[str] = command.split()
         if command == "exit 0":
             break
-        elif command.startswith("echo"):
-            print(command.removeprefix("echo"))
+        elif parts[0] == "echo":
+            print(" ".join(parts[1:]))
         else:
             print(f"{command}: command not found")
         
