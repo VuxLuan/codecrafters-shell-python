@@ -11,6 +11,8 @@ def main():
         command = input()
         if command == "exit 0":
             break
+        elif command == "echo":
+            print(command)
         print(f"{command}: command not found")
         
 
