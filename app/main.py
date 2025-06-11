@@ -57,14 +57,18 @@ def handle_pwd(cmd_parts: list[str]) -> None:
 
 def handle_cd(cmd_parts: list[str]) -> None:
     cmd_to_find = cmd_parts[1]
-    try:
-        os.chdir(cmd_to_find)
-    except FileNotFoundError:
-        print(f"cd: {cmd_to_find}: No such file or directory")
-    except PermissionError:
-        print(f"Error: You do not have permission to access '{cmd_to_find}'.")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+    if len(cmd_to_find) == 1:
+        home_directory = Path.home()
+        os.chdir(home_directory)
+    else:
+        try:
+            os.chdir(cmd_to_find)
+        except FileNotFoundError:
+            print(f"cd: {cmd_to_find}: No such file or directory")
+        except PermissionError:
+            print(f"Error: You do not have permission to access '{cmd_to_find}'.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
 
 # --- Dictionary Dispatcher ---
