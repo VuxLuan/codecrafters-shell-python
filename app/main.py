@@ -1,10 +1,11 @@
 import sys
 import os
 import subprocess
+from pathlib import Path
 
 # --- Centralized Configuration ---
 # A set provides faster lookups than a list (O(1) vs O(n))
-BUILTIN_COMMANDS = {"echo", "exit", "type", "pwd"}
+BUILTIN_COMMANDS = {"echo", "exit", "type", "pwd", "cd"}
 
 
 # --- Reusable Helper Function ---
@@ -48,16 +49,31 @@ def handle_type(cmd_parts: list[str]) -> None:
         else:
             print(f"{cmd_to_find}: not found")
 
+
 def handle_pwd(cmd_parts: list[str]) -> None:
     current_directory = os.getcwd()
     print(current_directory)
+
+
+def handle_cd(cmd_parts: list[str]) -> None:
+    cmd_to_find = cmd_parts[1]
+    try:
+        os.chdir(cmd_to_find)
+    except FileNotFoundError:
+        print(f"cd: {cmd_to_find}: No such file or directory")
+    except PermissionError:
+        print(f"Error: You do not have permission to access '{cmd_to_find}'.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
 
 # --- Dictionary Dispatcher ---
 COMMAND_HANDLERS = {
     "exit": handle_exit,
     "echo": handle_echo,
     "type": handle_type,
-    "pwd" : handle_pwd,
+    "pwd": handle_pwd,
+    "cd": handle_cd,
 }
 
 
