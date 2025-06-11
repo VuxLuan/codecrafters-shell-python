@@ -4,7 +4,7 @@ import subprocess
 
 # --- Centralized Configuration ---
 # A set provides faster lookups than a list (O(1) vs O(n))
-BUILTIN_COMMANDS = {"echo", "exit", "type"}
+BUILTIN_COMMANDS = {"echo", "exit", "type", "pwd"}
 
 
 # --- Reusable Helper Function ---
@@ -48,12 +48,16 @@ def handle_type(cmd_parts: list[str]) -> None:
         else:
             print(f"{cmd_to_find}: not found")
 
+def handle_pwd(cmd_parts: list[str]) -> None:
+    current_directory = os.getcwd()
+    print(current_directory)
 
 # --- Dictionary Dispatcher ---
 COMMAND_HANDLERS = {
     "exit": handle_exit,
     "echo": handle_echo,
     "type": handle_type,
+    "pwd" : handle_pwd,
 }
 
 
